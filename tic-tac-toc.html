@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f2f2f2;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 8px;
+    }
+
+    .bo {
+      width: 100px;
+      height: 100px;
+      font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+      border: 2px solid #333;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    .bo:hover {
+      background: #e0e0e0;
+      transform: scale(1.05);
+    }
+
+    .bo:disabled {
+      cursor: not-allowed;
+      background: #ddd;
+    }
+    #reset{
+       font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+      border: 2px 4px solid #333;
+       transition: background 0.3s, transform 0.1s;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tic Tac Toe</h1>
+  <div class="board">
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+    <button class="bo"></button>
+     <div id="result"></div>
+
+  </div>
+  <div>
+    <button id="reset">reset</button>
+  </div>
+  <script>
+   const result = document.getElementById('result');
+   const reset1=document.getElementById("reset");
+    let x = 'X';
+    let o = 'O';
+    let turnX = true; // X starts first
+    const winPatterns = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+    function check(){
+      for(let pattern of winPatterns){
+         const[a,b,c]=pattern;
+         const val1=buttons[a].innerText;
+          const val2=buttons[b].innerText;
+           const val3=buttons[c].innerText;
+            if (val1 && val1 === val2 && val2 === val3) {
+          result.textContent = `🎉 Player ${val1} Wins!`;
+          buttons.forEach(btn => btn.disabled = true);
+          return true;
+        }
+        
+      }
+      
+     
+    }
+    const buttons = document.querySelectorAll('.bo');
+    
+    buttons.forEach(btn => {
+      btn.onclick = function() {
+        if (btn.innerText === '') {
+          btn.innerText = turnX ? x : o;
+         //  if(!check()){
+         //     turnX = !turnX;
+         //  }
+          turnX = !turnX;
+          check();
+          
+        }
+      };
+    });
+    function reset(){
+      turnX=true;
+      
+       for(let box of buttons){
+        // box.disabled;
+        box.innerText="";
+        
+         buttons.forEach(btn => btn.disabled = false);
+         
+      }
+      reset.textContent.add('hide');
+     
+      // enble();
+      // for(let i=0;i<buttons.length; i++){
+      //  buttons[0].textContent="";
+      // }
+      
+    console.log("hi");
+    }
+    reset1.addEventListener('click', reset);
+    // reset1.onclick=()=>{
+    //   document.querySelectorAll('.bo').reset();
+    //   // buttons.innerText.reset();
+    //   console.log("reset");
+    // }
+    function enble(){
+     
+    }
+  </script>
+
+</body>
+</html>
